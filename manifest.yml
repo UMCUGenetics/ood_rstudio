@@ -1,0 +1,11 @@
+---
+name: RStudio Server
+category: Interactive Apps
+subcategory: IDE
+role: batch_connect
+description: |
+  This app will launch [RStudio Server] an IDE for [R] using [Rocker] containers
+  
+  [RStudio Server]: https://www.rstudio.com/products/rstudio-server/
+  [R]: https://www.r-project.org/
+  [Rocker]: https://rocker-project.org/

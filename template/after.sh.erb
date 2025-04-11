@@ -1,0 +1,9 @@
+# Wait for the server to start
+echo "Waiting for server to open port ${port}..."
+if wait_until_port_used "${host}:${port}" 900; then
+  echo "Discovered server listening on port ${port}!"
+else
+  echo "Timed out waiting for server to open port ${port}!"
+  clean_up 1
+fi
+sleep 2

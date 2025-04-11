@@ -1,0 +1,23 @@
+batch_connect:
+  template: "basic"
+  conn_params:
+    - csrftoken
+
+script:
+  native: [
+            "-N", "1",
+            "--gres", "tmpspace:50G",
+            "--signal", "USR2",
+            "-c", "<%= bc_cpus.blank?  ? 1 : bc_cpus.to_i %>",
+            <%- if bc_partition == "gpu" -%>
+             "--partition", "<%= bc_partition %>",
+             <%- if not bc_gpus.blank? -%>
+              "-G", "<%= bc_gpus.to_i %>",
+             <%- else -%>
+              "-G", "1",
+             <%- end -%>
+            <%- end -%>
+            <%- if not bc_mem.blank? -%>
+             "--mem", "<%= bc_mem.to_i %>G",
+            <%- end -%>
+          ]

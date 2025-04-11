@@ -1,0 +1,75 @@
+cluster: "ubec"
+
+form:
+  - R_version
+  - bc_path
+  - bc_partition
+  - bc_cpus
+  - bc_gpus
+  - bc_mem
+  - bc_num_hours
+  - bc_email_on_started
+
+attributes:
+  R_version:
+    widget: "select"
+    label: "R version"
+    options:
+      - [ "latest", "latest" ]
+      - [ "4.4", "4.4" ]
+      - [ "4.3", "4.3" ]
+      - [ "4.2", "4.2" ]
+      - [ "4.1", "4.1" ]
+      - [ "4.0", "4.0" ]
+    value: "latest"
+    required: true
+    display: true
+  bc_path:
+    widget: "text_field"
+    label: "Working directory"
+    value: <%= ENV['HOME'] %>
+    help: |
+      <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
+
+  bc_partition:
+    widget: "select"
+    label: "Node type"
+    options:
+      - [ "cpu", "cpu" ]
+      - [ "gpu", "gpu" ]
+    value: "cpu" 
+    required: true
+    display: true
+    help: |
+      <small>Partition to submit the job to</small>
+
+  bc_cpus:
+    label: "#CPUs"
+    widget: "number_field"
+    required: true
+    min: 1
+    value: "1"
+    help: |
+      <small>Number of CPU cores to allocate</small>
+
+  bc_gpus:
+    label: "#GPUs (optional)"
+    widget: "number_field"
+    min: 1
+    max: 2
+    value: ""
+    help: |
+      <small>
+      Number of GPUs to allocate (don't forget to select a partition with GPUs)
+      </small>
+
+  bc_mem:
+    label: "Memory (GB) (optional)"
+    widget: "number_field"
+    help: |
+      <small>Amount of memory to allocate</small>
+
+  bc_num_hours:
+    label: "Runtime (in hours)"
+    default: 2
+
