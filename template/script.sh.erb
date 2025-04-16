@@ -41,7 +41,7 @@ export APPTAINER_BIND="${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
 export APPTAINERENV_RSTUDIO_SESSION_TIMEOUT=0
 
 export APPTAINERENV_USER=$(id -un)
-export APPTAINERENV_PASSWORD=$(openssl rand -base64 15)
+export APPTAINERENV_PASSWORD=$RSTUDIO_PASSWORD
 
 cat 1>&2 <<END
 1. Browse through openondemand using the following link:
@@ -72,6 +72,7 @@ apptainer exec --cleanenv \
                $SIF \
     rserver --www-port ${port} \
             --auth-none=0 \
+            --auth-encrypt-password=0 \
             --auth-pam-helper-path=pam-helper \
             --auth-stay-signed-in-days=30 \
             --auth-timeout-minutes=0 \
