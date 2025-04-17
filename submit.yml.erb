@@ -9,8 +9,8 @@ script:
             "--gres", "tmpspace:50G",
             "--signal", "USR2",
             "-c", "<%= bc_cpus.blank?  ? 1 : bc_cpus.to_i %>",
-            <%- if bc_partition == "gpu" -%>
-             "--partition", "<%= bc_partition %>",
+            <%- if auto_queues == "gpu" -%>
+             "--partition", "<%= auto_queues %>",
              <%- if not bc_gpus.blank? -%>
               "-G", "<%= bc_gpus.to_i %>",
              <%- else -%>

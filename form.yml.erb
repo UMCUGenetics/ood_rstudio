@@ -4,7 +4,7 @@ form:
   - R_version
   - bc_path
   - auto_queues
-  - bc_partition
+  #- bc_partition
   - bc_cpus
   - bc_gpus
   - bc_mem
@@ -25,6 +25,7 @@ attributes:
     value: "latest"
     required: true
     display: true
+
   bc_path:
     widget: "path_selector"
     label: "Working directory"

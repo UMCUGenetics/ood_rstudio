@@ -6,7 +6,7 @@ workspace=<%= context.bc_path %>
 export APPTAINER_CACHEDIR=${workspace}/.apptainer
 echo $APPTAINER_CACHEDIR
 
-<% if context.bc_partition == "gpu" -%>
+<% if context.auto_queues == "gpu" -%>
   apptainer pull --dir $TMPDIR rocker.sif docker://rocker/ml:<%= context.R_version %>
 <% else -%>
   apptainer pull --dir $TMPDIR rocker.sif docker://rocker/tidyverse:<%= context.R_version %>
@@ -62,7 +62,7 @@ When done using RStudio Server, terminate the job by:
 END
 
 apptainer exec --cleanenv \
-<% if context.bc_partition == "gpu" -%>
+<% if context.auto_queues == "gpu" -%>
                --nv \
                -B /usr/local/cuda-11.8:/usr/local/cuda-11.8 \
 <% end -%>
