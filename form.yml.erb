@@ -3,10 +3,10 @@ cluster: "ubec"
 form:
   - R_version
   - bc_path
-  - auto_accounts
-  #- auto_queues
+  - bc_simple_auto_accounts
+  - auto_queues
   - bc_cpus
-  #- bc_gpus
+  - bc_gpus
   - bc_mem
   - bc_num_hours
   - bc_email_on_started
@@ -35,6 +35,11 @@ attributes:
       - /hpc
     help: |
       <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
+
+  auto_queues:
+    options:
+      - [ "cpu", "cpu", data-hide-bc-gpus: true ]
+      -'gpu'
 
   bc_cpus:
     label: "#CPUs"
