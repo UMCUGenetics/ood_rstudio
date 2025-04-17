@@ -3,6 +3,7 @@ cluster: "ubec"
 form:
   - R_version
   - bc_path
+  - auto_queues
   - bc_partition
   - bc_cpus
   - bc_gpus
@@ -25,9 +26,10 @@ attributes:
     required: true
     display: true
   bc_path:
-    widget: "text_field"
+    widget: "path_selector"
     label: "Working directory"
-    value: <%= ENV['HOME'] %>
+    directory: <%= ENV['HOME'] %>
+    show_files: false
     help: |
       <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
 
