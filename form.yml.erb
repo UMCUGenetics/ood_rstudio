@@ -3,10 +3,10 @@ cluster: "ubec"
 form:
   - R_version
   - bc_path
-  - auto_queues
-  #- bc_partition
+  - auto_accounts
+  #- auto_queues
   - bc_cpus
-  - bc_gpus
+  #- bc_gpus
   - bc_mem
   - bc_num_hours
   - bc_email_on_started
@@ -31,26 +31,17 @@ attributes:
     label: "Working directory"
     directory: <%= ENV['HOME'] %>
     show_files: false
+    favorites:
+      - /hpc
     help: |
       <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
-
-  bc_partition:
-    widget: "select"
-    label: "Node type"
-    options:
-      - [ "cpu", "cpu" ]
-      - [ "gpu", "gpu" ]
-    value: "cpu" 
-    required: true
-    display: true
-    help: |
-      <small>Partition to submit the job to</small>
 
   bc_cpus:
     label: "#CPUs"
     widget: "number_field"
     required: true
     min: 1
+    max: 48
     value: "1"
     help: |
       <small>Number of CPU cores to allocate</small>
