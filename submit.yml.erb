@@ -9,6 +9,7 @@ script:
             "--gres", "tmpspace:5G",
             "--signal", "USR2",
             "-c", "<%= bc_cpus.blank?  ? 1 : bc_cpus.to_i %>",
+            "--account", "<%= auto_accounts %>",
             <%- if bc_partition == "gpu" -%>
              "--partition", "<%= bc_partition %>",
              <%- if not bc_gpus.blank? -%>
