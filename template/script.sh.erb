@@ -23,7 +23,7 @@ SIF=${TMPDIR}/rocker.sif
 # where writable file systems are necessary. Adjust path as appropriate for your computing environment.
 cat > ${workdir}/rsession.sh <<END
 #!/bin/sh
-export R_LIBS_USER=\${workspace}/R/rocker-rstudio/${rversion}
+export R_LIBS_USER=${workspace}/R/rocker-rstudio/${rversion}
 mkdir -p "\${R_LIBS_USER}"
 ## custom Rprofile & Renviron (default is \$HOME/.Rprofile and \$HOME/.Renviron)
 # export R_PROFILE_USER=/path/to/Rprofile
