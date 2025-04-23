@@ -9,7 +9,7 @@ echo $APPTAINER_CACHEDIR
 <% if context.bc_partition == "gpu" -%>
   apptainer pull --dir $TMPDIR rocker.sif docker://rocker/ml:<%= context.R_version %>
 <% else -%>
-  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/tidyverse:<%= context.R_version %>
+  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/verse:<%= context.R_version %>
 <% end -%>
 
 SIF=${TMPDIR}/rocker.sif
