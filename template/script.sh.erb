@@ -7,9 +7,9 @@ export APPTAINER_CACHEDIR=${workspace}/.apptainer
 echo $APPTAINER_CACHEDIR
 
 <% if context.bc_partition == "gpu" -%>
-  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/ml:<%= context.R_version %>
+  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.R_version %>
 <% else -%>
-  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/verse:<%= context.R_version %>
+  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.R_version %>
 <% end -%>
 
 SIF=${TMPDIR}/rocker.sif
@@ -25,6 +25,7 @@ cat > ${workdir}/rsession.sh <<END
 #!/bin/sh
 export R_LIBS_USER=${workspace}/R/rocker-rstudio/${rversion}
 mkdir -p "\${R_LIBS_USER}"
+export TMPDIR=/tmp
 ## custom Rprofile & Renviron (default is \$HOME/.Rprofile and \$HOME/.Renviron)
 # export R_PROFILE_USER=/path/to/Rprofile
 # export R_ENVIRON_USER=/path/to/Renviron
@@ -69,6 +70,7 @@ apptainer exec --cleanenv \
                -B /hpc:/hpc \
                --scratch /run,/tmp,/var/lib/rstudio-server \
                --workdir ${workdir} \
+               --env TMPDIR="/tmp" \
                $SIF \
     rserver --www-port ${port} \
             --auth-none=0 \
