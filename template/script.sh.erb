@@ -25,6 +25,7 @@ cat > ${workdir}/rsession.sh <<END
 #!/bin/sh
 export R_LIBS_USER=${workspace}/R/rocker-rstudio/${rversion}
 mkdir -p "\${R_LIBS_USER}"
+export TMPDIR=/tmp
 ## custom Rprofile & Renviron (default is \$HOME/.Rprofile and \$HOME/.Renviron)
 # export R_PROFILE_USER=/path/to/Rprofile
 # export R_ENVIRON_USER=/path/to/Renviron
