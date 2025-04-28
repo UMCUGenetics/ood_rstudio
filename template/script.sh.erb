@@ -1,5 +1,5 @@
 #!/bin/bash
-#based on https://rocker-project.org/use/APPTAINER.html
+#based on https://rocker-project.org/use/singularity.html
 # specify path to container
 workdir=$TMPDIR
 workspace=<%= context.bc_path %>
@@ -71,7 +71,6 @@ apptainer exec --cleanenv \
                -B /hpc:/hpc \
                --scratch /run,/tmp,/var/lib/rstudio-server \
                --workdir ${workdir} \
-               --env TMPDIR="/tmp" \
                $SIF \
     rserver --www-port ${port} \
             --auth-none=0 \
