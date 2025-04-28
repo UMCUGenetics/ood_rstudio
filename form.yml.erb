@@ -6,8 +6,9 @@ form:
   - auto_accounts
   - bc_partition
   - bc_cpus
-  - bc_gpus
+  #- bc_gpus
   - bc_mem
+  - bc_scratch
   - bc_num_hours
   - bc_email_on_started
 
@@ -17,12 +18,13 @@ attributes:
     label: "R version"
     options:
       - [ "latest", "latest" ]
+      - [ "4.5", "4.5" ]
       - [ "4.4", "4.4" ]
       - [ "4.3", "4.3" ]
       - [ "4.2", "4.2" ]
       - [ "4.1", "4.1" ]
       - [ "4.0", "4.0" ]
-    value: "latest"
+    value: "4.5"
     required: true
     display: true
 
@@ -61,14 +63,26 @@ attributes:
     value: ""
     help: |
       <small>
-      Number of GPUs to allocate (don't forget to select a partition with GPUs)
+      Number of GPUs to allocate
       </small>
 
   bc_mem:
     label: "Memory (GB) (optional)"
     widget: "number_field"
+    value: "10"
+    min: "2"
+    max: "1000"
     help: |
-      <small>Amount of memory to allocate</small>
+      <small>Amount of memory to allocate. (default is 10 GB)</small>
+
+  bc_scratch:
+    label: "Scratch disk space (GB) (optional)"
+    widget: "number_field"
+    value: "50"
+    min: "10"
+    max: "2000"
+    help: |
+      <small>Amount of scratch disk space to allocate (default is 50 GB)</small>
 
   bc_num_hours:
     label: "Runtime (in hours)"
