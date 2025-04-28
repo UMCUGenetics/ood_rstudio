@@ -5,8 +5,9 @@ form:
   - bc_path
   - bc_partition
   - bc_cpus
-  - bc_gpus
+  #- bc_gpus
   - bc_mem
+  - bc_scratch
   - bc_num_hours
   - bc_email_on_started
 
@@ -49,6 +50,7 @@ attributes:
     widget: "number_field"
     required: true
     min: 1
+    max: 48
     value: "1"
     help: |
       <small>Number of CPU cores to allocate</small>
@@ -61,14 +63,26 @@ attributes:
     value: ""
     help: |
       <small>
-      Number of GPUs to allocate (don't forget to select a partition with GPUs)
+      Number of GPUs to allocate
       </small>
 
   bc_mem:
     label: "Memory (GB) (optional)"
     widget: "number_field"
+    value: "10"
+    min: "2"
+    max: "1000"
     help: |
-      <small>Amount of memory to allocate</small>
+      <small>Amount of memory to allocate. (default is 10 GB)</small>
+
+  bc_scratch:
+    label: "Scratch disk space (GB) (optional)"
+    widget: "number_field"
+    value: "50"
+    min: "10"
+    max: "2000"
+    help: |
+      <small>Amount of scratch disk space to allocate (default is 50 GB)</small>
 
   bc_num_hours:
     label: "Runtime (in hours)"
