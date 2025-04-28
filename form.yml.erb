@@ -43,7 +43,7 @@ attributes:
     label: Partition
     options:
       - [ "cpu", "cpu", data-hide-bc-gpus: true ]
-      - [ "gpu", "gpu" ]
+      #- [ "gpu", "gpu" ]
 
   bc_cpus:
     label: "#CPUs"
@@ -79,7 +79,7 @@ attributes:
     label: "Scratch disk space (GB) (optional)"
     widget: "number_field"
     value: "50"
-    min: "10"
+    min: "5"
     max: "2000"
     help: |
       <small>Amount of scratch disk space to allocate (default is 50 GB)</small>
