@@ -1,16 +1,12 @@
 #!/bin/bash
-#based on https://rocker-project.org/use/APPTAINER.html
+#based on https://rocker-project.org/use/singularity.html
 # specify path to container
 workdir=$TMPDIR
 workspace=<%= context.bc_path %>
 export APPTAINER_CACHEDIR=${workspace}/.apptainer
 echo $APPTAINER_CACHEDIR
 
-<% if context.bc_partition == "gpu" -%>
-  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/ml:<%= context.R_version %>
-<% else -%>
-  apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.R_version %>
-<% end -%>
+apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.R_version %>
 
 SIF=${TMPDIR}/rocker.sif
 <% if context.R_version == "latest" -%>
@@ -26,6 +22,11 @@ cat > ${workdir}/rsession.sh <<END
 export R_LIBS_USER=${workspace}/R/rocker-rstudio/${rversion}
 mkdir -p "\${R_LIBS_USER}"
 export TMPDIR=/tmp
+<% if context.bc_partition == "gpu" -%>
+  export PATH=/usr/local/cuda-11.8/bin:\$PATH
+  export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:\$LD_LIBRARY_PATH
+  export CUDA_HOME=/usr/local/cuda-11.8
+<% end -%>
 ## custom Rprofile & Renviron (default is \$HOME/.Rprofile and \$HOME/.Renviron)
 # export R_PROFILE_USER=/path/to/Rprofile
 # export R_ENVIRON_USER=/path/to/Renviron
