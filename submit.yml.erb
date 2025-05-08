@@ -16,6 +16,7 @@ script:
             <%- if not bc_mem.blank? -%>
              "--mem", "<%= bc_mem.to_i %>G",
             <%- end -%>
+            "--account", "<%= auto_accounts %>",
             <%- if bc_partition == "gpu" -%>
              "--partition", "<%= bc_partition %>",
              <%- if not bc_gpus.blank? -%>

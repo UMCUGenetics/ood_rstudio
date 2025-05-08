@@ -3,6 +3,7 @@ cluster: "ubec"
 form:
   - R_version
   - bc_path
+  - auto_accounts
   - bc_partition
   - bc_cpus
   #- bc_gpus
@@ -26,24 +27,23 @@ attributes:
     value: "4.5"
     required: true
     display: true
+
   bc_path:
-    widget: "text_field"
+    widget: "path_selector"
     label: "Working directory"
-    value: <%= ENV['HOME'] %>
+    directory: <%= ENV['HOME'] %>
+    show_files: false
+    favorites:
+      - /hpc
     help: |
       <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
 
   bc_partition:
-    widget: "select"
-    label: "Node type"
+    widget: select
+    label: Partition
     options:
-      - [ "cpu", "cpu" ]
-      - [ "gpu", "gpu" ]
-    value: "cpu" 
-    required: true
-    display: true
-    help: |
-      <small>Partition to submit the job to</small>
+      - [ "cpu", "cpu", data-hide-bc-gpus: true ]
+      #- [ "gpu", "gpu" ]
 
   bc_cpus:
     label: "#CPUs"
@@ -79,7 +79,7 @@ attributes:
     label: "Scratch disk space (GB) (optional)"
     widget: "number_field"
     value: "50"
-    min: "10"
+    min: "5"
     max: "2000"
     help: |
       <small>Amount of scratch disk space to allocate (default is 50 GB)</small>
