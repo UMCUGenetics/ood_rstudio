@@ -39,7 +39,7 @@ attributes:
       <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
 
   bc_partition:
-    widget: hidden
+    widget: "hidden_field"
     label: "Node type"
     options:
       - [ "cpu", "cpu", data-hide-bc-gpus: true ]
