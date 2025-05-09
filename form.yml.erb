@@ -6,7 +6,7 @@ form:
   - auto_accounts
   - bc_partition
   - bc_cpus
-  #- bc_gpus
+  - bc_gpus
   - bc_mem
   - bc_scratch
   - bc_num_hours
@@ -39,7 +39,7 @@ attributes:
       <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
 
   bc_partition:
-    widget: "hidden_field"
+    widget: "select"
     label: Partition
     options:
       - [ "cpu", "cpu", data-hide-bc-gpus: true ]
@@ -79,7 +79,7 @@ attributes:
     label: "Scratch disk space (GB) (optional)"
     widget: "number_field"
     value: "50"
-    min: "5"
+    min: "8"
     max: "2000"
     help: |
       <small>Amount of scratch disk space to allocate (default is 50 GB)</small>
