@@ -6,7 +6,7 @@ form:
   - auto_accounts
   - bc_partition
   - bc_cpus
-  - bc_gpus
+  #- bc_gpus
   - bc_mem
   - bc_scratch
   - bc_num_hours
@@ -39,14 +39,14 @@ attributes:
       <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
 
   bc_partition:
-    widget: "select"
-    label: Partition
+    widget: hidden
+    label: "Node type"
     options:
       - [ "cpu", "cpu", data-hide-bc-gpus: true ]
       - [ "gpu", "gpu" ]
 
   bc_cpus:
-    label: "#CPUs"
+    label: "Number of CPU's"
     widget: "number_field"
     required: true
     min: 1
@@ -62,9 +62,7 @@ attributes:
     max: 2
     value: ""
     help: |
-      <small>
-      Number of GPUs to allocate
-      </small>
+      <small>Number of GPUs to allocate</small>
 
   bc_mem:
     label: "Memory (GB) (optional)"
