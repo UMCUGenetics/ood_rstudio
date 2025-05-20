@@ -78,6 +78,7 @@ apptainer exec --cleanenv \
             --auth-pam-helper-path=pam-helper \
             --auth-stay-signed-in-days=30 \
             --auth-timeout-minutes=0 \
+            --auth-minimum-user-id=500 \
             --server-user=$(whoami) \
             --rsession-path=/etc/rstudio/rsession.sh  
 
