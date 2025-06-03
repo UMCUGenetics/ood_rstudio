@@ -6,13 +6,13 @@ workspace=<%= context.bc_path %>
 export APPTAINER_CACHEDIR=${workspace}/.apptainer
 echo $APPTAINER_CACHEDIR
 
-apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.R_version %>
+apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.r_version %>
 
 SIF=${TMPDIR}/rocker.sif
-<% if context.R_version == "latest" -%>
+<% if context.r_version == "latest" -%>
   rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
 <% else -%>
-  rversion=<%= context.R_version %>
+  rversion=<%= context.r_version %>
 <% end -%>
 
 # Create temporary directory to be populated with directories to bind-mount in the container
