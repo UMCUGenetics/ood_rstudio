@@ -31,12 +31,12 @@ attributes:
   bc_path:
     widget: "path_selector"
     label: "Working directory"
-    directory: <%= ENV['HOME'] %>
+    directory: $TMPDIR
     show_files: false
     favorites:
       - /hpc
     help: |
-      <small>Select a folder to start the server in. R packages will be installed here in a subdirectory. The default is your `$HOME` directory, but is strongly recommended to select a folder from the shared storage space (/hpc/..), because your $HOME folder will get full easily.</small>
+      <small>Select a folder to start the server in. Additional R packages will be installed here in a subdirectory. The default is the non-persistent `$TMPDIR` directory, but this folder will be erased after the session. Therefore, it is <b>strongly</b> recommended to select a folder from the shared storage space (/hpc/...). <b>Do not</b> user your home folder because it does not have sufficient space available.</small>
 
   auto_accounts:
     label: "Compute group"
