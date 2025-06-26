@@ -1,14 +1,8 @@
 #!/bin/bash
 #based on https://rocker-project.org/use/singularity.html
-# specify path to container
 workdir=$TMPDIR
 workspace=<%= context.bc_path %>
-#export APPTAINER_CACHEDIR=${workspace}/.apptainer
-#echo $APPTAINER_CACHEDIR
 
-#apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.r_version %>
-
-#SIF=${TMPDIR}/rocker.sif
 <% if context.r_version == "latest" -%>
   rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
 <% else -%>
@@ -60,7 +54,7 @@ When done using RStudio Server, terminate the job by:
 1. Exit the RStudio Session ("power" button in the top right corner of the RStudio window)
 2. Browse to:
     https://hpcs05.op.umcutrecht.nl/pun/sys/dashboard/batch_connect/sessions
-    click Delete button in RStudio Server (${SLURM_JOB_ID}) card
+    click Cancel button in RStudio Server (${SLURM_JOB_ID}) card
 END
 
 apptainer exec --cleanenv \
