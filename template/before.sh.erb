@@ -1,6 +1,15 @@
 # Export the module function if it exists
 [[ $(type -t module) == "function" ]] && export -f module
 
+# specify path to container
+workspace=<%= context.bc_path %>
+export APPTAINER_CACHEDIR=${workspace}/.apptainer
+echo $APPTAINER_CACHEDIR
+
+apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.r_version %>
+
+export SIF=${TMPDIR}/rocker.sif
+
 # Find available port to run server on
 port=$(find_port $host)
 

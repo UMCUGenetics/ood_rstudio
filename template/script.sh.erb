@@ -3,12 +3,12 @@
 # specify path to container
 workdir=$TMPDIR
 workspace=<%= context.bc_path %>
-export APPTAINER_CACHEDIR=${workspace}/.apptainer
-echo $APPTAINER_CACHEDIR
+#export APPTAINER_CACHEDIR=${workspace}/.apptainer
+#echo $APPTAINER_CACHEDIR
 
-apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.r_version %>
+#apptainer pull --dir $TMPDIR rocker.sif docker://rocker/geospatial:<%= context.r_version %>
 
-SIF=${TMPDIR}/rocker.sif
+#SIF=${TMPDIR}/rocker.sif
 <% if context.r_version == "latest" -%>
   rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
 <% else -%>
