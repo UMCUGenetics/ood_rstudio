@@ -16,6 +16,9 @@ cat > ${workdir}/rsession.sh <<END
 export R_LIBS_USER=${workspace}/R/rocker-rstudio/${rversion}
 mkdir -p "\${R_LIBS_USER}"
 export TMPDIR=/tmp
+# Do not suspend idle sessions.
+# Alternative to setting session-timeout-minutes=0 in /etc/rstudio/rsession.conf
+export RSTUDIO_SESSION_TIMEOUT=0
 <% if context.bc_partition == "gpu" -%>
   export PATH=/usr/local/cuda-11.8/bin:\$PATH
   export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:\$LD_LIBRARY_PATH
@@ -34,7 +37,7 @@ export APPTAINER_BIND="${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
 # Do not suspend idle sessions.
 # Alternative to setting session-timeout-minutes=0 in /etc/rstudio/rsession.conf
 # https://github.com/rstudio/rstudio/blob/v1.4.1106/src/cpp/server/ServerSessionManager.cpp#L126
-export APPTAINERENV_RSTUDIO_SESSION_TIMEOUT=0
+#export APPTAINERENV_RSTUDIO_SESSION_TIMEOUT=0
 
 export APPTAINERENV_USER=$(id -un)
 export APPTAINERENV_PASSWORD=$RSTUDIO_PASSWORD
@@ -73,7 +76,6 @@ apptainer exec --cleanenv \
             --auth-stay-signed-in-days=30 \
             --auth-timeout-minutes=0 \
             --auth-minimum-user-id=500 \
-            --session-timeout-minutes=0 \
             --server-user=$(whoami) \
             --rsession-path=/etc/rstudio/rsession.sh  
 
