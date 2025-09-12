@@ -34,11 +34,6 @@ chmod +x ${workdir}/rsession.sh
 
 export APPTAINER_BIND="${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
 
-# Do not suspend idle sessions.
-# Alternative to setting session-timeout-minutes=0 in /etc/rstudio/rsession.conf
-# https://github.com/rstudio/rstudio/blob/v1.4.1106/src/cpp/server/ServerSessionManager.cpp#L126
-#export APPTAINERENV_RSTUDIO_SESSION_TIMEOUT=0
-
 export APPTAINERENV_USER=$(id -un)
 export APPTAINERENV_PASSWORD=$RSTUDIO_PASSWORD
 
@@ -60,7 +55,7 @@ When done using RStudio Server, terminate the job by:
     click Cancel button in RStudio Server (${SLURM_JOB_ID}) card
 END
 
-apptainer exec --cleanenv \
+apptainer exec \
 <% if context.bc_partition == "gpu" -%>
                --nv \
                -B /usr/local/cuda-11.8:/usr/local/cuda-11.8 \
