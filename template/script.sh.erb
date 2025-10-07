@@ -12,7 +12,7 @@ workspace=<%= context.bc_path %>
 # Create temporary directory to be populated with directories to bind-mount in the container
 # where writable file systems are necessary. Adjust path as appropriate for your computing environment.
 cat > ${workdir}/rsession.sh <<END
-#!/bin/sh
+#!/bin/bash
 export R_LIBS_USER=${workspace}/R/rocker-rstudio/${rversion}
 mkdir -p "\${R_LIBS_USER}"
 export TMPDIR=/tmp
@@ -27,6 +27,10 @@ export RSTUDIO_SESSION_TIMEOUT=0
 ## custom Rprofile & Renviron (default is \$HOME/.Rprofile and \$HOME/.Renviron)
 # export R_PROFILE_USER=/path/to/Rprofile
 # export R_ENVIRON_USER=/path/to/Renviron
+# source user specific R environment variables
+if [ -f \$HOME/.rsession_env ]; then
+  source \$HOME/.rsession_env
+fi
 exec /usr/lib/rstudio-server/bin/rsession "\${@}"
 END
 
