@@ -4,8 +4,9 @@ category: Interactive Apps
 subcategory: IDE
 role: batch_connect
 description: |
-  This app will launch [RStudio Server] an IDE for [R] using [Rocker Project] geospatial containers. Initial startup can take up to 15 minutes.
+  This app will launch [RStudio Server] an IDE for [R] using [Rocker Project] (geospatial) or [Bioconductor] containers. Initial startup can take up to 15 minutes.
   
   [RStudio Server]: https://www.rstudio.com/products/rstudio-server/
   [R]: https://www.r-project.org/
   [Rocker Project]: https://rocker-project.org/
+  [Bioconductor]: https://www.bioconductor.org/

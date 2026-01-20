@@ -1,7 +1,9 @@
 cluster: "ubec"
 
 form:
+  - source
   - r_version
+  - bioc_version
   - bc_path
   - auto_accounts
   - bc_partition
@@ -13,6 +15,22 @@ form:
   - bc_email_on_started
 
 attributes:
+  source:
+    widget: "select"
+    label: "Container source"
+    options:
+      - [
+        'Rocker-project', 'rocker',
+         data-hide-bioc-version: true
+        ]
+      - [
+        'Bioconductor', 'bioconductor',
+          data-hide-r-version: true
+        ]
+    value: "rocker"
+    required: true
+    display: true
+
   r_version:
     widget: "select"
     label: "R version"
@@ -26,7 +44,19 @@ attributes:
       - [ "4.0", "4.0" ]
     value: "4.5"
     required: true
-    display: true
+
+  bioc_version:
+    widget: "select"
+    label: "Bioconductor release"
+    options:
+      - [ "3.22 (R 4.5)", "3.22" ]
+      - [ "3.21 (R 4.5)", "3.21" ]
+      - [ "3.20 (R 4.4)", "3.20" ]
+      - [ "3.19 (R 4.4)", "3.19" ]
+      - [ "3.18 (R 4.3)", "3.18" ]
+      - [ "3.17 (R 4.3)", "3.17" ]
+    value: "3_22"
+    required: true
 
   bc_path:
     widget: "path_selector"

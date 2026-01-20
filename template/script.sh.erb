@@ -3,17 +3,13 @@
 workdir=$TMPDIR
 workspace=<%= context.bc_path %>
 
-<% if context.r_version == "latest" -%>
-  rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
-<% else -%>
-  rversion=<%= context.r_version %>
-<% end -%>
+rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
 
 # Create temporary directory to be populated with directories to bind-mount in the container
 # where writable file systems are necessary. Adjust path as appropriate for your computing environment.
 cat > ${workdir}/rsession.sh <<END
 #!/bin/bash
-export R_LIBS_USER=${workspace}/R/rocker-rstudio/${rversion}
+export R_LIBS_USER=${workspace}/R/<%= context.source %>/${rversion}
 mkdir -p "\${R_LIBS_USER}"
 export TMPDIR=/tmp
 # Do not suspend idle sessions.
