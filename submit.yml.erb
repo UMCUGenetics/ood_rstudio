@@ -6,7 +6,7 @@ batch_connect:
 script:
   native: [
             "-N", "1",
-            <%- if not bc_mem.blank? -%>
+            <%- if not bc_scratch.blank? -%>
              "--gres", "tmpspace:<%= bc_scratch.to_i %>G",
             <% else -%>
              "--gres", "tmpspace:50G",
@@ -18,7 +18,8 @@ script:
             <%- end -%>
             "--account", "<%= auto_accounts %>",
             <%- if bc_partition == "gpu" -%>
-             "--partition", "<%= bc_partition %>",
+              "--partition", "<%= bc_partition %>",
+              "--nodelist", "n0108", 
              <%- if not bc_gpus.blank? -%>
               "-G", "<%= bc_gpus.to_i %>",
              <%- else -%>
