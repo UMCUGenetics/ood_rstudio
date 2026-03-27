@@ -9,7 +9,7 @@ form:
   - auto_accounts
   - bc_partition
   - bc_cpus
-  - bc_gpus
+  #- bc_gpus
   - bc_mem
   - bc_scratch
   - bc_num_hours
@@ -77,15 +77,25 @@ attributes:
     widget: "select"
     label: "Node type"
     options:
-      - [ "cpu", "cpu", data-hide-bc-gpus: true ]
-      - [ "gpu", "gpu" ]
+      - [
+          "cpu", "cpu",
+          data-hide-bc-gpus: true,
+          data-max-bc_cpus: 48,
+          data-max-bc_mem: 1000,
+          data-max-bc_sratch: 2000
+        ]
+      - [ 
+          "gpu", "gpu",
+          data-max-bc_cpus: 32,
+          data-max-bc_mem: 380,
+          data-max-bc_sratch: 1200
+        ]
 
   bc_cpus:
     label: "Number of CPU's"
     widget: "number_field"
     required: true
     min: 1
-    max: 48
     value: "1"
     help: |
       <small>Number of CPU cores to allocate</small>
@@ -105,7 +115,6 @@ attributes:
     required: true
     value: "10"
     min: "5"
-    max: "1000"
     help: |
       <small>Amount of memory to allocate. (default is 10 GB)</small>
 
