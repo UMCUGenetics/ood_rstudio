@@ -8,8 +8,8 @@ form:
   - bc_path
   - auto_accounts
   - bc_partition
+  - bc_gpus
   - bc_cpus
-  #- bc_gpus
   - bc_mem
   - bc_scratch
   - bc_num_hours
@@ -80,6 +80,7 @@ attributes:
       - [
           "cpu", "cpu",
           data-hide-bc-gpus: true,
+          data-set-bc-gpus: "",
           data-max-bc_cpus: 48,
           data-max-bc_mem: 1000,
           data-max-bc_sratch: 2000
@@ -91,6 +92,41 @@ attributes:
           data-max-bc_sratch: 1200
         ]
 
+  bc_gpus:
+    label: "GPU type (optional)"
+<% user = OodSupport::User.new -%>
+<% if user.in_group?("spatial_omics") -%>
+    widget: "select"
+<% else -%>
+    widget: "hidden_field"
+<% end -%>
+    options:
+      -  [
+           "Tesla V100-16GB", "tesla_v100-pcie-16gb",
+
+         ]
+      -  [
+           "Quadro RTX6000-24GB", "quadro_rtx_6000",
+           data-max-bc_cpus: 24,
+           data-max-bc_mem: 380,
+           data-max-bc_sratch: 2000
+         ]
+      -  [
+           "A100-20G", "2g.20gb",
+           data-max-bc_cpus: 48,
+           data-max-bc_mem: 500,
+           data-max-bc_sratch: 1500
+         ]
+      -  [
+           "A100-80G", "7g.79gb",
+           data-max-bc_cpus: 48,
+           data-max-bc_mem: 500,
+           data-max-bc_sratch: 1500
+         ]
+    value: ""
+    help: |
+      <small>GPU type to allocate</small>
+
   bc_cpus:
     label: "Number of CPU's"
     widget: "number_field"
@@ -99,15 +135,6 @@ attributes:
     value: "1"
     help: |
       <small>Number of CPU cores to allocate</small>
-
-  bc_gpus:
-    label: "#GPUs (optional)"
-    widget: "number_field"
-    min: 1
-    max: 2
-    value: ""
-    help: |
-      <small>Number of GPUs to allocate</small>
 
   bc_mem:
     label: "Memory (GB) (optional)"

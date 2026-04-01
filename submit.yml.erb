@@ -19,11 +19,10 @@ script:
             "--account", "<%= auto_accounts %>",
             <%- if bc_partition == "gpu" -%>
               "--partition", "<%= bc_partition %>",
-              "--nodelist", "n0108", 
              <%- if not bc_gpus.blank? -%>
-              "-G", "<%= bc_gpus.to_i %>",
+              "--gpus-per-node", "<%= bc_gpus %>:1",
              <%- else -%>
-              "-G", "1",
+              "--gpus-per-node", "tesla_v100-pcie-16gb:1",
              <%- end -%>
             <%- end -%>
           ]
