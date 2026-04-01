@@ -81,15 +81,12 @@ attributes:
           "cpu", "cpu",
           data-hide-bc-gpus: true,
           data-set-bc-gpus: "",
-          data-max-bc_cpus: 48,
-          data-max-bc_mem: 1000,
-          data-max-bc_sratch: 2000
+          data-max-bc-cpus: 48,
+          data-max-bc-mem: 1000,
+          data-max-bc-sratch: 2000
         ]
       - [ 
           "gpu", "gpu",
-          data-max-bc_cpus: 32,
-          data-max-bc_mem: 380,
-          data-max-bc_sratch: 1200
         ]
 
   bc_gpus:
@@ -102,26 +99,34 @@ attributes:
 <% end -%>
     options:
       -  [
+           "", "",
+           data-max-bc-cpus: 32,
+           data-max-bc-mem: 380,
+           data-max-bc-sratch: 1200
+         ]
+      -  [
            "Tesla V100-16GB", "tesla_v100-pcie-16gb",
-
+           data-max-bc-cpus: 32,
+           data-max-bc-mem: 380,
+           data-max-bc-sratch: 1200
          ]
       -  [
            "Quadro RTX6000-24GB", "quadro_rtx_6000",
-           data-max-bc_cpus: 24,
-           data-max-bc_mem: 380,
-           data-max-bc_sratch: 2000
+           data-max-bc-cpus: 24,
+           data-max-bc-mem: 380,
+           data-max-bc-sratch: 2000
          ]
       -  [
            "A100-20G", "2g.20gb",
-           data-max-bc_cpus: 48,
-           data-max-bc_mem: 500,
-           data-max-bc_sratch: 1500
+           data-max-bc-cpus: 48,
+           data-max-bc-mem: 500,
+           data-max-bc-sratch: 1500
          ]
       -  [
            "A100-80G", "7g.79gb",
-           data-max-bc_cpus: 48,
-           data-max-bc_mem: 500,
-           data-max-bc_sratch: 1500
+           data-max-bc-cpus: 48,
+           data-max-bc-mem: 500,
+           data-max-bc-sratch: 1500
          ]
     value: ""
     help: |
