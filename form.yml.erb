@@ -8,7 +8,7 @@ form:
   - auto_accounts
   - bc_partition
   - bc_cpus
-  #- bc_gpus
+  - bc_gpus
   - bc_mem
   - bc_scratch
   - bc_num_hours
@@ -77,7 +77,7 @@ attributes:
     label: "Compute group"
 
   bc_partition:
-    widget: "hidden_field"
+    widget: "select"
     label: "Node type"
     options:
       - [ "cpu", "cpu", data-hide-bc-gpus: true ]
