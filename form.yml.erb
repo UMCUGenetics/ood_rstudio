@@ -16,6 +16,11 @@ form:
   - bc_num_hours
   - bc_email_on_started
 
+<%
+  user = OodSupport::User.new
+  spatial_omics = user.in_group?("spatial_omics")
+-%>
+
 attributes:
   source:
     widget: "select"
@@ -86,18 +91,10 @@ attributes:
           data-max-bc-mem: 1000,
           data-max-bc-sratch: 2000
         ]
-      - [ 
-          "gpu", "gpu",
-        ]
-
+      - [ "gpu", "gpu" <% unless spatial_omics %>, data-hide-bc-gpus: true <% end %> ]
   bc_gpus:
     label: "GPU type (optional)"
-<% user = OodSupport::User.new -%>
-<% if user.in_group?("spatial_omics") -%>
     widget: "select"
-<% else -%>
-    widget: "hidden_field"
-<% end -%>
     options:
       -  [
            "", "",
