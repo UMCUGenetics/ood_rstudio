@@ -1,7 +1,7 @@
 #!/bin/bash
 #based on https://rocker-project.org/use/singularity.html
 workdir=$TMPDIR
-workspace=<%= context.bc_path %>
+workspace=<%= context.bc_path.blank? ? '$TMPDIR' : context.bc_path %>
 
 rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
 

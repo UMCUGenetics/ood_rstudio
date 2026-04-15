@@ -1,3 +1,7 @@
+<%
+  user = OodSupport::User.new
+  spatial_omics = user.in_group?("spatial_omics")
+-%>
 cluster:
   - ubec
   - ubc26
@@ -16,11 +20,6 @@ form:
   - bc_num_hours
   - bc_email_on_started
 
-<%
-  user = OodSupport::User.new
-  spatial_omics = user.in_group?("spatial_omics")
--%>
-
 attributes:
   source:
     widget: "select"
@@ -34,7 +33,7 @@ attributes:
         'Bioconductor', 'bioconductor',
           data-hide-r-version: true
         ]
-    value: "rocker"
+    value: "rocker-rstudio"
     required: true
     display: true
 
@@ -62,14 +61,13 @@ attributes:
       - [ "3.19 (R 4.4)", "3.19" ]
       - [ "3.18 (R 4.3)", "3.18" ]
       - [ "3.17 (R 4.3)", "3.17" ]
-    value: "3_22"
+    value: "3.22"
     required: true
 
   bc_path:
     widget: "path_selector"
     label: "Working directory"
     required: true
-    directory: $TMPDIR
     show_files: false
     favorites:
       - /hpc
@@ -86,47 +84,43 @@ attributes:
       - [
           "cpu", "cpu",
           data-hide-bc-gpus: true,
-          data-set-bc-gpus: "",
           data-max-bc-cpus: 96,
           data-max-bc-mem: 1000,
-          data-max-bc-sratch: 2000
+          data-max-bc-scratch: 2000
         ]
-      - [ "gpu", "gpu" <% unless spatial_omics %>, data-hide-bc-gpus: true <% end %> ]
+      - [
+          "gpu", "gpu"<% unless spatial_omics %>,
+           data-hide-bc-gpus: true,
+           data-set-bc-gpus: "tesla_v100-pcie-16gb"<% end %>
+        ]
   bc_gpus:
     label: "GPU type (optional)"
     widget: "select"
     options:
       -  [
-           "", "",
-           data-max-bc-cpus: 64,
-           data-max-bc-mem: 380,
-           data-max-bc-sratch: 1200
-         ]
-      -  [
            "Tesla V100-16GB", "tesla_v100-pcie-16gb",
            data-max-bc-cpus: 64,
            data-max-bc-mem: 380,
-           data-max-bc-sratch: 1200
+           data-max-bc-scratch: 1200
          ]
       -  [
            "Quadro RTX6000-24GB", "quadro_rtx_6000",
            data-max-bc-cpus: 48,
            data-max-bc-mem: 380,
-           data-max-bc-sratch: 2000
+           data-max-bc-scratch: 2000
          ]
       -  [
            "A100-20G", "2g.20gb",
            data-max-bc-cpus: 96,
            data-max-bc-mem: 500,
-           data-max-bc-sratch: 1500
+           data-max-bc-scratch: 1500
          ]
       -  [
            "A100-80G", "7g.79gb",
            data-max-bc-cpus: 96,
            data-max-bc-mem: 500,
-           data-max-bc-sratch: 1500
+           data-max-bc-scratch: 1500
          ]
-    value: ""
     help: |
       <small>GPU type to allocate</small>
 
