@@ -2,8 +2,8 @@
 [[ $(type -t module) == "function" ]] && export -f module
 
 # specify path to container
-workspace=<%= context.bc_path %>
-export APPTAINER_CACHEDIR=${workspace}/.apptainer
+export WORKSPACE=<%= context.bc_path.blank? ? '$TMPDIR' : context.bc_path %>
+export APPTAINER_CACHEDIR=${WORKSPACE}/.apptainer
 echo $APPTAINER_CACHEDIR
 
 <% if context.source == "bioconductor" -%>

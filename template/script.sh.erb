@@ -1,13 +1,11 @@
 #!/bin/bash
 #based on https://rocker-project.org/use/singularity.html
-workdir=$TMPDIR
-workspace=<%= context.bc_path.blank? ? '$TMPDIR' : context.bc_path %>
 
 rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
 
 # Create temporary directory to be populated with directories to bind-mount in the container
 # where writable file systems are necessary. Adjust path as appropriate for your computing environment.
-cat > ${workdir}/rsession.sh <<END
+cat > ${TMPDIR}/rsession.sh <<END
 #!/bin/bash
 export R_LIBS_USER=${workspace}/R/<%= context.source %>/${rversion}
 mkdir -p "\${R_LIBS_USER}"
@@ -30,9 +28,9 @@ fi
 exec /usr/lib/rstudio-server/bin/rsession "\${@}"
 END
 
-chmod +x ${workdir}/rsession.sh
+chmod +x ${TMPDIR}/rsession.sh
 
-export APPTAINER_BIND="${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
+export APPTAINER_BIND="${TMPDIR}/rsession.sh:/etc/rstudio/rsession.sh"
 
 export APPTAINERENV_USER=$(id -un)
 export APPTAINERENV_PASSWORD=$RSTUDIO_PASSWORD
@@ -62,7 +60,7 @@ apptainer exec --cleanenv \
 <% end -%>
                -B /hpc:/hpc \
                --scratch /run,/tmp,/var/lib/rstudio-server \
-               --workdir ${workdir} \
+               --workdir ${TMPDIR} \
                $SIF \
     rserver --www-port ${port} \
             --auth-none=0 \
