@@ -7,7 +7,7 @@ rversion=$(apptainer exec $SIF R --version | grep -oE '[0-9]+\.[0-9]+')
 # where writable file systems are necessary. Adjust path as appropriate for your computing environment.
 cat > ${TMPDIR}/rsession.sh <<END
 #!/bin/bash
-export R_LIBS_USER=${workspace}/R/<%= context.source %>/${rversion}
+export R_LIBS_USER=${WORKSPACE}/R/<%= context.source %>/${rversion}
 mkdir -p "\${R_LIBS_USER}"
 export TMPDIR=/tmp
 # Do not suspend idle sessions.
